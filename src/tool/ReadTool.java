@@ -1,15 +1,17 @@
 package tool;
 
-import wordAna.Token;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ReadTool {
+    /**
+     * 从file读取字符
+     * @param fileName 文件名
+     * @return 返回字符数组
+     * @throws Exception 文件不存在
+     */
     public static ArrayList<Character> read(String fileName) throws Exception{
         ArrayList<Character> chars = new ArrayList<>();
         int oneChar;
