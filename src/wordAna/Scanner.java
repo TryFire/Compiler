@@ -7,8 +7,12 @@ import java.util.ArrayList;
 
 /**
  * Created by Yuriko on 2016/11/30.
+ *
+ * input:filename(read form file)
+ * output:记号流(a list of Token)
  */
 public class Scanner {
+    //记号类型(types of word)
     protected enum  Token_Type {
         ORIGIN, SCALE, ROT, IS,                  // 保留字（一字一码)
         TO, STEP, DRAW,FOR, FROM,                // 保留字
@@ -22,7 +26,7 @@ public class Scanner {
         ERRTOKEN                                 // 出错记号（非法输入）
     }
 
-    private ArrayList<Token> tokenDic = new ArrayList<>();      //记号字典
+    private ArrayList<Token> tokenDic = new ArrayList<>();      //关键字记号字典
     private int lines;                                          //总行数
     private ArrayList<Character> buffers = new ArrayList<>();   //缓冲区 用来存放读取的字符但是没识别完全的
     private ArrayList<Character> oriCode;                       //原始读入的字符流
@@ -31,6 +35,11 @@ public class Scanner {
     private boolean isFinished = false;                         //是否已结束当然的词法分析
     private boolean isInitDic = false;                          //是否已初始化字典
 
+    /**
+     * start of analyse 开始词法分析
+     * @param fileName 文件名
+     * @return a list of Token 返回记号流
+     */
     public ArrayList<Token> run(String fileName) {
         isRun = true;
         initScanner(fileName);
@@ -46,6 +55,10 @@ public class Scanner {
         return restltToken;
     }
 
+    /**
+     * 初始化词法分析器 init...for Scanner
+     * @param fileName
+     */
     private void initScanner(String fileName) {
         lines = 0;
         currentCharNum = 0;
@@ -71,8 +84,8 @@ public class Scanner {
     }
 
     /**
-     * get one char
-     * @return
+     * 从字符数组oriCode获取一个字符 get one char from oriCode
+     * @return 返回一个字符
      */
     private char getChar() {
         if (currentCharNum == oriCode.size()) {
@@ -83,10 +96,16 @@ public class Scanner {
         return oneChar;
     }
 
+    /**
+     * 把当前读取的字符返回到源代码字符数组中
+     */
     private void backChar() {
         currentCharNum--;
     }
 
+    /**
+     * 初始化（加载）关键字记号字典
+     */
     private void initTokenDic() {
         tokenDic.add(new Token(Token_Type.CONST_ID, "PI", 3.1415926, "NULL"));
         tokenDic.add(new Token(Token_Type.CONST_ID, "E", 2.71828, "NULL"));
@@ -108,6 +127,11 @@ public class Scanner {
         tokenDic.add(new Token(Token_Type.DRAW, "DRAW", 0.0, "NULL"));
     }
 
+    /**
+     * 识别出单词的字符数组与关键字字典进行比较
+     * @param key 识别出的单词的字符数组
+     * @return 如果与子弹匹配 返回字典中的几号 否则返回null
+     */
     private Token judgeTokenDic(ArrayList<Character> key) {
         String keys = ArrToObj.charArrToString(key);
         Token token = null;
@@ -120,6 +144,10 @@ public class Scanner {
         return token;
     }
 
+    /**
+     * 识别单词并且进行分析
+     * @return 返回一个记号（Token）
+     */
     private Token getToken() {
         char oneChar;
         Token token = new Token();
@@ -266,6 +294,10 @@ public class Scanner {
 
     }
 
+    /**
+     * 获取总行数
+     * @return 返回源代码的总行数
+     */
     public int getLines() {
         if (isRun) {
             System.out.println("analyse is not complete");
@@ -277,6 +309,10 @@ public class Scanner {
         return lines + 1;
     }
 
+    /**
+     * 判断是否结束词法分析
+     * @return 一结束返回true 否则返回false
+     */
     public boolean isFinished() {
         return isFinished;
     }
