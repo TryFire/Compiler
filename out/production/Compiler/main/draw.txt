@@ -1,28 +1,26 @@
---------------- 图形1：
-origin is (20, 200);									-- 设置原点的偏移量
-rot is 0;												-- 不旋转
-scale is (40, 40);										-- 设置比例
-for T from 0 to 2*pi step pi/50 draw (t, -sin(t));		-- 画T的轨迹
-origin is (20, 240);									-- 下移40单位
-for T from 0 to 2*pi step pi/50 draw (t, -sin(t));		-- 画T的轨迹
-origin is (20, 280);									-- 再下移40单位
-for T from 0 to 2*pi step pi/50 draw (t, -sin(t));		-- 画T的轨迹
+origin is (150, 150);
+scale is (50, 50);
+for t from 0 to 2*pi step pi/30 draw(cos(t), sin(t));
+scale is (100, 100);
+for t from 0 to 2*pi step pi/50 draw(cos(t), sin(t));
 
---------------- 图形2：
-origin is (380, 240);									-- 右移
-scale is (80, 80/3);									-- y方向压缩为三分之一
-rot is pi/2+0*pi/3 ;									-- 旋转初值设置
-for T from -pi to pi step pi/50 draw (cos(t), sin(t));	-- 画T的轨迹
-rot is pi/2+2*pi/3;										-- 旋转2/3*pi
-for T from -pi to pi step pi/50 draw (cos(t), sin(t));	-- 画T的轨迹
-rot is pi/2-2*pi/3;										-- 再旋转2/3*pi
-for T from -pi to pi step pi/50 draw (cos(t), sin(t));	-- 画T的轨迹
+origin is (150, 400);
+scale is (100, 100/3);
+rot is pi/6;
+for t from 0 to 2*pi step pi/50 draw(cos(t), sin(t));
+rot is pi/2;
+for t from 0 to 2*pi step pi/50 draw(cos(t), sin(t));
+rot is 5*pi/6;
+for t from 0 to 2*pi step pi/50 draw(cos(t), sin(t));
 
---------------- 图形3：
-origin is(580, 240);									-- 再右移
-scale is (80, 80);										-- 恢复原比例
-rot is 0;												-- 不旋转
-for t from 0 to 2*pi step pi/50 draw(cos(t),sin(t));	-- 画T的轨迹
-for t from 0 to Pi*20 step Pi/50 draw					-- 画T的轨迹
-   ((1-1/(10/7))*Cos(T)+1/(10/7)*Cos(-T*((10/7)-1)),
-	(1-1/(10/7))*Sin(T)+1/(10/7)*Sin(-T*((10/7)-1)));
+origin is (400, 400);
+rot is 0;
+scale is (1, 1);
+for T from 0 to 200 step 1 draw (t, 0);
+for T from 0 to 150 step 1 draw (0, -t);
+for T from 0 to 120 step 1 draw (t, -t);
+scale is (2, 0.1);								-- 设置比例
+for T from 0 to 50 step 1 draw (t, -t*t);		-- 函数f(t)=t*t的轨迹
+
+scale is (10, 5);								-- 设置比例
+for T from 0 to 30 step 1 draw (t, -sqrt(t));	-- 函数f(t)=sqrt(t)的轨迹

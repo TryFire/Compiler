@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Scanner {
     //记号类型(types of word)
-    protected enum  Token_Type {
+    public enum  Token_Type {
         ORIGIN, SCALE, ROT, IS,                  // 保留字（一字一码)
         TO, STEP, DRAW,FOR, FROM,                // 保留字
         T,                                       // 参数
@@ -40,9 +40,9 @@ public class Scanner {
      * @param fileName 文件名
      * @return a list of Token 返回记号流
      */
-    public ArrayList<Token> run(String fileName) {
+    public ArrayList<Token> run(String data) {
         isRun = true;
-        initScanner(fileName);
+        initScanner(data);
         ArrayList<Token> restltToken = new ArrayList<>();
         while (getChar() != '\0') {
             backChar();
@@ -52,6 +52,9 @@ public class Scanner {
         }
         isRun = false;
         isFinished = true;
+        if (restltToken.get(restltToken.size()-1).getType() == Token_Type.NONTOKEN) {
+            restltToken.remove(restltToken.size() - 1);
+        }
         return restltToken;
     }
 
@@ -59,7 +62,7 @@ public class Scanner {
      * 初始化词法分析器 init...for Scanner
      * @param fileName
      */
-    private void initScanner(String fileName) {
+    private void initScanner(String data) {
         lines = 0;
         currentCharNum = 0;
         isFinished = false;
@@ -69,7 +72,7 @@ public class Scanner {
             isInitDic = true;
         }
         try {
-            oriCode = ReadTool.read(fileName);
+            oriCode = ReadTool.readFromStr(data);
         } catch (Exception e) {
             System.out.println("Can't find file");
         }

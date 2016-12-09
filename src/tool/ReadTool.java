@@ -23,6 +23,14 @@ public class ReadTool {
         }
         return chars;
     }
+
+    public static ArrayList<Character> readFromStr(String data) {
+        ArrayList<Character> chars = new ArrayList<>();
+        for (int i = 0; i < data.length(); i++) {
+            chars.add(data.charAt(i));
+        }
+        return chars;
+    }
     public static boolean stringComp(String a, String b) {
         return Objects.equals(a.toUpperCase(), b.toUpperCase());
     }
